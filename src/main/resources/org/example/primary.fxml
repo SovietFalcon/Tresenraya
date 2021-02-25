@@ -88,12 +88,17 @@
       </SplitPane>
       <AnchorPane prefHeight="53.0" prefWidth="808.0">
          <children>
-            <Label fx:id="alerta_roja" layoutX="107.0" layoutY="12.0" prefHeight="30.0" prefWidth="307.0" textAlignment="CENTER" textFill="RED">
+            <Label fx:id="alerta_roja" layoutX="107.0" layoutY="24.0" prefHeight="30.0" prefWidth="307.0" textAlignment="CENTER" textFill="RED">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="alerta_azul" layoutX="107.0" layoutY="12.0" prefHeight="30.0" prefWidth="307.0" textAlignment="CENTER" textFill="#2e1cf8">
+            <Label fx:id="alerta_azul" layoutX="107.0" layoutY="-1.0" prefHeight="30.0" prefWidth="307.0" textAlignment="CENTER" textFill="#2e1cf8">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="alerta_verde" layoutX="107.0" layoutY="12.0" prefHeight="30.0" prefWidth="307.0" textAlignment="CENTER" textFill="#00c645">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>

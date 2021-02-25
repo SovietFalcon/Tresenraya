@@ -13,7 +13,7 @@ public class PrimaryController {
     int modo = 0;
     int[][] juegovacio = new int[3][3];
     int[][] juego = new int[3][3];
-    boolean jugando = true;
+    boolean jugando = false;
     int jugador = 1;
 
 
@@ -44,6 +44,7 @@ public class PrimaryController {
     //alertas
     @FXML Label alerta_azul;
     @FXML Label alerta_roja;
+    @FXML Label alerta_verde;
 
     //Conseguir coordenada
     public int[] getCoord(String cuadricula) {
@@ -129,17 +130,29 @@ public class PrimaryController {
         jugador2.setDisable(true);
     }
 
+    public void resetearCasillas() {
+        c11.setText("");c12.setText("");c13.setText("");
+        c21.setText("");c22.setText("");c23.setText("");
+        c31.setText("");c32.setText("");c33.setText("");
+    }
+
     @FXML public void comenzarPartida(ActionEvent event) {
 
         Button b = (Button) event.getSource();
         jugando = true;
-        juego = juegovacio;
+        juego = new int[3][3];
 
         if (modo == 3 || modo == 2 && jugador == 1) {
-            c11.setText("");c12.setText("");c13.setText("");
-            c21.setText("");c22.setText("");c23.setText("");
-            c31.setText("");c32.setText("");c33.setText("");
+            resetearCasillas();
+
             jugar.setDisable(true);
+            pcvspc.setDisable(true);
+            playervspc.setDisable(true);
+            playervsplayer.setDisable(true);
+            alerta_azul.setText("");
+            alerta_roja.setText("");
+            alerta_verde.setText("");
+            getTurno();
         }
     }
 
@@ -149,17 +162,122 @@ public class PrimaryController {
         Button b = (Button) event.getSource();
         int[] coord = {0,0};
 
-        if (jugando) {  // comprobación de si el juego está en marcha
+        if (jugando) {  // comprobació de si el joc està en marxa
             coord = getCoord(b.getId());
-            if (juego[coord[0]][coord[1]] == 0) {  // comprobación de si la casilla está ocupada
-                juego[coord[0]][coord[1]] = jugador;
-                System.out.println(coord[0] + " " + coord[1]);
+            if (juego[coord[0]][coord[1]] == 0) {  // comprobació de si la casella està ocupada
+                juego[coord[0]][coord[1]] = jugador;  //implementació a l'array
+                alerta_roja.setText("");
+
+                //pintar casella
+                if (jugador == 1) {
+                    b.setText("X");
+                } else if (jugador == 2) {
+                    b.setText("O");
+                }
+
+                if (comprobarGanador(juego) != 0) {
+                    anunciarGanador(comprobarGanador(juego));
+                } else {
+
+                    cambiarTurno();
+                    getTurno();
+                }
+                //TEST
+                //System.out.println(coord[0] + " " + coord[1]);
+
+
             } else {
-                System.out.println("OCUPADA");
+                alerta_roja.setText("¡Cuadrícula ocupada!");
             }
 
         }
 
 
     }
+
+    public void getTurno() {
+        alerta_azul.setText("Turno del jugador " + jugador);
+    }
+
+    public void cambiarTurno() {
+        if (jugador == 1) {
+            jugador = 2;
+        } else if (jugador == 2) {
+            jugador = 1;
+        }
+    }
+
+    public int comprobarGanador(int[][] juego) {
+        int ganador = 0;
+
+        if (juego[0][0] != 0 && juego[0][0] == juego[0][1] && juego[0][1] == juego[0][2]) {
+            ganador = juego[0][0];
+            // [*][*][*]
+            // [ ][ ][ ]
+            // [ ][ ][ ]
+        } else if (juego[0][0] != 0 && juego[0][0] == juego[1][0] && juego[1][0] == juego[2][0]) {
+            ganador = juego[0][0];
+            // [*][ ][ ]
+            // [*][ ][ ]
+            // [*][ ][ ]
+        } else if (juego[2][0] != 0 && juego[2][0] == juego[2][1] && juego[2][1] == juego[2][2]) {
+            ganador = juego[2][0];
+            // [ ][ ][ ]
+            // [ ][ ][ ]
+            // [*][*][*]
+        } else if (juego[2][2] != 0 && juego[2][2] == juego[1][2] && juego[1][2] == juego[0][2]) {
+            ganador = juego[2][2];
+            // [ ][ ][*]
+            // [ ][ ][*]
+            // [ ][ ][*]
+        } else if (juego[0][1] != 0 && juego[0][1] == juego[1][1] && juego[1][1] == juego[2][1]) {
+            ganador = juego[0][1];
+            // [ ][*][ ]
+            // [ ][*][ ]
+            // [ ][*][ ]
+        } else if (juego[1][0] != 0 && juego[1][0] == juego[1][1] && juego[1][1] == juego[1][2]) {
+            ganador = juego[1][0];
+            // [ ][ ][ ]
+            // [*][*][*]
+            // [ ][ ][ ]
+        } else if (juego[0][0] != 0 && juego[0][0] == juego[1][1] && juego[1][1] == juego[2][2]) {
+            ganador = juego[0][0];
+            // [*][ ][ ]
+            // [ ][*][ ]
+            // [ ][ ][*]
+        } else if (juego[0][2] != 0 && juego[0][2] == juego[1][1] && juego[1][1] == juego[2][0]) {
+            ganador = juego[0][2];
+            // [ ][ ][*]
+            // [ ][*][ ]
+            // [*][ ][ ]
+        } else if (juego[0][0] != 0 && juego[0][1] != 0 && juego[0][2] != 0 &&
+                    juego[1][0] != 0 && juego[1][1] != 0 && juego[1][2] != 0 &&
+                    juego[2][0] != 0 && juego [2][1] != 0 && juego[2][2] != 0) {
+            ganador = 3;
+
+            // [*][*][*]
+            // [*][*][*]
+            // [*][*][*]
+        }
+
+        // return 0 if no hay ganador
+        // return 1/2 if jugador 1/2 ha ganado
+        // return 3 if empate
+        return ganador;
+    }
+
+    public void anunciarGanador(int jugador) {
+
+        jugando = false;
+        alerta_azul.setText("");
+        jugar.setDisable(false);
+
+        if (jugador != 3) {
+            alerta_verde.setText("¡ HA GANADO EL JUGADOR " + jugador + " !");
+        } else {
+            alerta_verde.setText("¡ EMPATE !");
+        }
+
+    }
+
 }
