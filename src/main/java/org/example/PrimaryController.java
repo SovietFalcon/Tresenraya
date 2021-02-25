@@ -136,19 +136,27 @@ public class PrimaryController {
         c31.setText("");c32.setText("");c33.setText("");
     }
 
+    public void desactivarControles() {
+        jugar.setDisable(true);
+        pcvspc.setDisable(true);
+        playervspc.setDisable(true);
+        playervsplayer.setDisable(true);
+        jugador1.setDisable(true);
+        jugador2.setDisable(true);
+    }
+
+
     @FXML public void comenzarPartida(ActionEvent event) {
 
         Button b = (Button) event.getSource();
         jugando = true;
         juego = new int[3][3];
+        desactivarControles();
 
         if (modo == 3 || modo == 2 && jugador == 1) {
             resetearCasillas();
+            jugador = 1;
 
-            jugar.setDisable(true);
-            pcvspc.setDisable(true);
-            playervspc.setDisable(true);
-            playervsplayer.setDisable(true);
             alerta_azul.setText("");
             alerta_roja.setText("");
             alerta_verde.setText("");
@@ -271,6 +279,10 @@ public class PrimaryController {
         jugando = false;
         alerta_azul.setText("");
         jugar.setDisable(false);
+        pcvspc.setDisable(false);
+        playervspc.setDisable(false);
+        playervsplayer.setDisable(false);
+
 
         if (jugador != 3) {
             alerta_verde.setText("¡ HA GANADO EL JUGADOR " + jugador + " !");
