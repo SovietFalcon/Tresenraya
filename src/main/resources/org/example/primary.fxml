@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.PrimaryController">
+   <children>
+      <MenuBar>
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Close" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Delete" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="About" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <SplitPane dividerPositions="0.6985111662531017">
+         <items>
+            <AnchorPane prefHeight="400.0" prefWidth="600.0">
+               <children>
+                  <Button fx:id="c11" layoutX="84.0" layoutY="34.0" mnemonicParsing="false" onAction="#clickCuadricula" prefHeight="100.0" prefWidth="100.0" text="X">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font></Button>
+                  <Button fx:id="c12" layoutX="198.0" layoutY="34.0" mnemonicParsing="false" onAction="#clickCuadricula" prefHeight="100.0" prefWidth="100.0" text="O">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font></Button>
+                  <Button fx:id="c13" layoutX="316.0" layoutY="34.0" mnemonicParsing="false" onAction="#clickCuadricula" prefHeight="100.0" prefWidth="100.0" text="X">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font></Button>
+                  <Button fx:id="c23" layoutX="316.0" layoutY="149.0" mnemonicParsing="false" onAction="#clickCuadricula" prefHeight="100.0" prefWidth="100.0" text="O">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font></Button>
+                  <Button fx:id="c22" layoutX="198.0" layoutY="149.0" mnemonicParsing="false" onAction="#clickCuadricula" prefHeight="100.0" prefWidth="100.0" text="X">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font></Button>
+                  <Button fx:id="c21" layoutX="84.0" layoutY="149.0" mnemonicParsing="false" onAction="#clickCuadricula" prefHeight="100.0" prefWidth="100.0" text="O">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font></Button>
+                  <Button fx:id="c31" layoutX="84.0" layoutY="266.0" mnemonicParsing="false" onAction="#clickCuadricula" prefHeight="100.0" prefWidth="100.0" text="X">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font></Button>
+                  <Button fx:id="c32" layoutX="198.0" layoutY="266.0" mnemonicParsing="false" onAction="#clickCuadricula" prefHeight="100.0" prefWidth="100.0" text="O">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font></Button>
+                  <Button fx:id="c33" layoutX="316.0" layoutY="266.0" mnemonicParsing="false" onAction="#clickCuadricula" prefHeight="100.0" prefWidth="100.0" text="X">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font></Button>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="0.0">
+               <children>
+                  <RadioButton fx:id="pcvspc" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#pcVsPc" prefHeight="30.0" prefWidth="130.0" text="PC vs PC">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="modes" />
+                     </toggleGroup></RadioButton>
+                  <RadioButton fx:id="playervsplayer" layoutX="14.0" layoutY="74.0" mnemonicParsing="false" onAction="#playerVsPlayer" prefHeight="30.0" prefWidth="130.0" text="Jugador vs Jugador" toggleGroup="$modes" />
+                  <RadioButton fx:id="playervspc" layoutX="14.0" layoutY="44.0" mnemonicParsing="false" onAction="#playerVsPc" prefHeight="30.0" prefWidth="130.0" text="Jugador vs PC" toggleGroup="$modes" />
+                  <Button fx:id="jugar" disable="true" layoutX="20.0" layoutY="244.0" mnemonicParsing="false" onAction="#comenzarPartida" prefHeight="40.0" prefWidth="119.0" text="Comenzar partida" />
+                  <RadioButton fx:id="jugador1" disable="true" layoutX="14.0" layoutY="154.0" mnemonicParsing="false" onAction="#setJugador1" text="Jugador 1">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="jugador" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="jugador2" disable="true" layoutX="14.0" layoutY="183.0" mnemonicParsing="false" onAction="#setJugador2" text="Jugador 2" toggleGroup="$jugador" />
+               </children>
+            </AnchorPane>
+         </items>
+      </SplitPane>
+      <AnchorPane prefHeight="53.0" prefWidth="808.0">
+         <children>
+            <Label fx:id="alerta_roja" layoutX="107.0" layoutY="12.0" prefHeight="30.0" prefWidth="307.0" textAlignment="CENTER" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="alerta_azul" layoutX="107.0" layoutY="12.0" prefHeight="30.0" prefWidth="307.0" textAlignment="CENTER" textFill="#2e1cf8">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
