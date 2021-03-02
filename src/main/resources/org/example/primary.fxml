@@ -10,7 +10,7 @@
          <menus>
             <Menu mnemonicParsing="false" text="File">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem fx:id="close" mnemonicParsing="false" onAction="#menuClose" text="Close" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Edit">
@@ -20,7 +20,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
                <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem fx:id="about" mnemonicParsing="false" onAction="#openAbout" text="About" />
                </items>
             </Menu>
          </menus>

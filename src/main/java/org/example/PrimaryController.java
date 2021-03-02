@@ -1,17 +1,21 @@
 package org.example;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
+import javafx.stage.Stage;
 
 public class PrimaryController {
 
     int modo = 0;
-    int[][] juegovacio = new int[3][3];
     int[][] juego = new int[3][3];
     boolean jugando = false;
     int jugador = 1;
@@ -45,6 +49,24 @@ public class PrimaryController {
     @FXML Label alerta_azul;
     @FXML Label alerta_roja;
     @FXML Label alerta_verde;
+
+    //menus
+    @FXML MenuItem about;
+    @FXML MenuItem close;
+
+    //Funcionamiento menús
+    @FXML public void openAbout(ActionEvent event) throws IOException {
+        MenuItem m = (MenuItem) event.getSource();
+
+        App.showNewStage("secondary");
+    }
+
+    @FXML public void menuClose(ActionEvent event) throws IOException {
+        MenuItem m = (MenuItem) event.getSource();
+
+        App.stageprincipal.close();
+
+    }
 
     //Conseguir coordenada
     public int[] getCoord(String cuadricula) {
@@ -152,15 +174,18 @@ public class PrimaryController {
         jugando = true;
         juego = new int[3][3];
         desactivarControles();
+        resetearCasillas();
+        alerta_azul.setText("");
+        alerta_roja.setText("");
+        alerta_verde.setText("");
+
 
         if (modo == 3 || modo == 2 && jugador == 1) {
-            resetearCasillas();
             jugador = 1;
 
-            alerta_azul.setText("");
-            alerta_roja.setText("");
-            alerta_verde.setText("");
             getTurno();
+        } else if (modo == 2 && jugador == 2 || modo == 1) {
+            turnoIA();
         }
     }
 
@@ -191,7 +216,7 @@ public class PrimaryController {
                     getTurno();
                 }
                 //TEST
-                //System.out.println(coord[0] + " " + coord[1]);
+                System.out.println(coord[0] + " " + coord[1]);
 
 
             } else {
@@ -213,6 +238,69 @@ public class PrimaryController {
         } else if (jugador == 2) {
             jugador = 1;
         }
+
+        if (modo == 1 || modo == 2 && jugador == 2) {
+            turnoIA();
+        }
+    }
+
+    public int[][] getCasillasLibres() {
+
+        int casillaslibres = 0;
+        //aconseguir el nombre de caselles lliures
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (juego[i][j] == 0) {
+                    casillaslibres++;
+                }
+            }
+        }
+
+        //aconseguir les caselles lliures
+        System.out.println(casillaslibres);
+
+        int[][] casillas = new int[casillaslibres][2];
+        int posicionarray = 0;
+
+        for (int k = 0; k < 3; k++) {
+            for (int l = 0; l < 3; l++) {
+                if (juego[k][l] == 0) {
+                    casillas[posicionarray][0] = k;
+                    casillas[posicionarray][1] = l;
+                    posicionarray++;
+                }
+            }
+        }
+
+        for (int x = 0; x < casillaslibres; x++) {
+            System.out.println("libre: " + casillas[x][0] + casillas[x][1]);
+        }
+
+
+        return casillas;
+    }
+
+
+    public void turnoIA() {
+        System.out.println("La IA hace un turno");
+
+        int[][] casillaslibres = getCasillasLibres();
+
+
+        Random random = new Random();
+        //System.out.println(lol);
+
+        //casella random
+        int eleccionIA = random.nextInt(casillaslibres.length);
+        System.out.println(eleccionIA);
+
+        //System.out.println(casillaslibres[eleccionIA][0]);
+
+
+
+
+
+        cambiarTurno();
     }
 
     public int comprobarGanador(int[][] juego) {
