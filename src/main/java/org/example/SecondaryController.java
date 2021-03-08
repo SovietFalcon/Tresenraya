@@ -21,10 +21,6 @@ public class SecondaryController {
         App.stagesecundari.close();
     }
 
-    @FXML
-    private void switchToPrimary() throws IOException {
-        App.setRoot("primary");
-    }
 
 
 }

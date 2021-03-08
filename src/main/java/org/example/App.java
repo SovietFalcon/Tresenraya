@@ -16,6 +16,7 @@ public class App extends Application {
     private static Scene scene;
     static Stage stageprincipal;
     static Stage stagesecundari;
+    static Stage stagegames;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -34,6 +35,14 @@ public class App extends Application {
         Stage stage = new Stage();
         stage.setScene(new Scene(loadFXML(fxml)));
         stagesecundari = stage;
+        stage.show();
+
+    }
+
+    static void showGames(String fxml) throws IOException {
+        Stage stage = new Stage();
+        stage.setScene(new Scene(loadFXML(fxml)));
+        stagegames = stage;
         stage.show();
 
     }

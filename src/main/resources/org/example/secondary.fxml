@@ -6,6 +6,6 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="311.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.SecondaryController">
    <children>
       <Button fx:id="ok" layoutX="102.0" layoutY="285.0" mnemonicParsing="false" onAction="#onClickOk" prefHeight="42.0" prefWidth="108.0" text="Ok" />
-      <ProgressIndicator fx:id="tiempo" layoutX="33.0" layoutY="21.0" progress="0.0" />
+      <TextArea editable="false" layoutX="38.0" layoutY="32.0" prefHeight="200.0" prefWidth="235.0" text="Aquest joc &quot;Tres en ratlla&quot; ha estat&#10;programat per l'Iván Campos Peñas,&#10;de l'Institut Numància, a Santa Coloma&#10;de Gramenet, Barcelona." />
    </children>
 </AnchorPane>

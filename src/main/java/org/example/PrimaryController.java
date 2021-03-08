@@ -19,6 +19,8 @@ public class PrimaryController {
     int[][] juego = new int[3][3];
     boolean jugando = false;
     int jugador = 1;
+    int jugadorset = 0;
+    boolean turnoIA = false;
 
 
     //radiobuttons
@@ -59,6 +61,12 @@ public class PrimaryController {
         MenuItem m = (MenuItem) event.getSource();
 
         App.showNewStage("secondary");
+    }
+
+    @FXML public void openGames(ActionEvent event) throws IOException {
+        MenuItem m = (MenuItem) event.getSource();
+
+        App.showGames("gameslist");
     }
 
     @FXML public void menuClose(ActionEvent event) throws IOException {
@@ -123,6 +131,9 @@ public class PrimaryController {
         jugar.setDisable(false);
         jugador1.setDisable(true);
         jugador2.setDisable(true);
+
+        jugador = 1;
+        turnoIA = true;
     }
 
     @FXML public void playerVsPc(ActionEvent event) {
@@ -134,13 +145,15 @@ public class PrimaryController {
     }
 
     @FXML public void setJugador1(ActionEvent event) {
-        jugador = 1;
+        jugadorset = 1;
         jugar.setDisable(false);
+        turnoIA = false;
     }
 
     @FXML public void setJugador2(ActionEvent event) {
-        jugador = 2;
+        jugadorset = 2;
         jugar.setDisable(false);
+        turnoIA = true;
     }
 
     @FXML public void playerVsPlayer(ActionEvent event) {
@@ -178,14 +191,19 @@ public class PrimaryController {
         alerta_azul.setText("");
         alerta_roja.setText("");
         alerta_verde.setText("");
+        jugador = 1;
 
-
-        if (modo == 3 || modo == 2 && jugador == 1) {
-            jugador = 1;
-
+        if (modo == 1) {
+            turnoIA = true;
+            cambiarTurno();
+        } else if (modo == 3 || modo == 2 && jugadorset == 1) {
+            turnoIA = false;
             getTurno();
-        } else if (modo == 2 && jugador == 2 || modo == 1) {
-            turnoIA();
+
+        } else if (modo == 2 && jugadorset == 2) {
+            turnoIA = false;
+            jugador = 2;
+            cambiarTurno();
         }
     }
 
@@ -239,9 +257,15 @@ public class PrimaryController {
             jugador = 1;
         }
 
-        if (modo == 1 || modo == 2 && jugador == 2) {
+        if (modo == 1) {
             turnoIA();
+        } else if (modo == 2 && turnoIA == false) {
+            turnoIA = true;
+            turnoIA();
+        } else if (modo == 2 && turnoIA == true) {
+            turnoIA = false;
         }
+
     }
 
     public int[][] getCasillasLibres() {
@@ -294,13 +318,52 @@ public class PrimaryController {
         int eleccionIA = random.nextInt(casillaslibres.length);
         System.out.println(eleccionIA);
 
-        //System.out.println(casillaslibres[eleccionIA][0]);
+        System.out.println("IA: " + casillaslibres[eleccionIA][0] + casillaslibres[eleccionIA][1]);
 
+        juego[casillaslibres[eleccionIA][0]][casillaslibres[eleccionIA][1]] = jugador;
+        int casilla1 = casillaslibres[eleccionIA][0];
+        int casilla2 = casillaslibres[eleccionIA][1];
 
+        Button b  = (Button) getButton(casilla1, casilla2);
 
+        if (jugador == 1) {
+            b.setText("X");
+        } else if (jugador == 2) {
+            b.setText("O");
+        }
 
+        if (comprobarGanador(juego) != 0) {
+            anunciarGanador(comprobarGanador(juego));
+        } else {
 
-        cambiarTurno();
+            cambiarTurno();
+            getTurno();
+        }
+    }
+
+    public Button getButton(int casilla1, int casilla2) {
+        Button button = c11;
+        if (casilla1 == 0 && casilla2 == 0) {
+            button = c11;
+        } else if (casilla1 == 0 && casilla2 == 1) {
+            button = c12;
+        } else if (casilla1 == 0 && casilla2 == 2) {
+            button = c13;
+        } else if (casilla1 == 1 && casilla2 == 0) {
+            button = c21;
+        } else if (casilla1 == 1 && casilla2 == 1) {
+            button = c22;
+        } else if (casilla1 == 1 && casilla2 == 2) {
+            button = c23;
+        } else if (casilla1 == 2 && casilla2 == 0) {
+            button = c31;
+        } else if (casilla1 == 2 && casilla2 == 1) {
+            button = c32;
+        } else if (casilla1 == 2 && casilla2 == 2) {
+            button = c33;
+        }
+
+        return button;
     }
 
     public int comprobarGanador(int[][] juego) {
@@ -364,12 +427,18 @@ public class PrimaryController {
 
     public void anunciarGanador(int jugador) {
 
+
         jugando = false;
         alerta_azul.setText("");
         jugar.setDisable(false);
         pcvspc.setDisable(false);
         playervspc.setDisable(false);
         playervsplayer.setDisable(false);
+
+        if (modo == 2) {
+            jugador1.setDisable(false);
+            jugador2.setDisable(false);
+        }
 
 
         if (jugador != 3) {

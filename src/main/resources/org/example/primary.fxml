@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.PrimaryController">
+<VBox stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.PrimaryController">
    <children>
       <MenuBar>
          <menus>
@@ -13,9 +13,9 @@
                   <MenuItem fx:id="close" mnemonicParsing="false" onAction="#menuClose" text="Close" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Edit">
+            <Menu mnemonicParsing="false" text="Game">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Delete" />
+                  <MenuItem mnemonicParsing="false" onAction="#openGames" text="Games list" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
@@ -75,13 +75,15 @@
                      </toggleGroup></RadioButton>
                   <RadioButton fx:id="playervsplayer" layoutX="14.0" layoutY="74.0" mnemonicParsing="false" onAction="#playerVsPlayer" prefHeight="30.0" prefWidth="130.0" text="Jugador vs Jugador" toggleGroup="$modes" />
                   <RadioButton fx:id="playervspc" layoutX="14.0" layoutY="44.0" mnemonicParsing="false" onAction="#playerVsPc" prefHeight="30.0" prefWidth="130.0" text="Jugador vs PC" toggleGroup="$modes" />
-                  <Button fx:id="jugar" disable="true" layoutX="20.0" layoutY="244.0" mnemonicParsing="false" onAction="#comenzarPartida" prefHeight="40.0" prefWidth="119.0" text="Comenzar partida" />
+                  <Button fx:id="jugar" disable="true" layoutX="20.0" layoutY="244.0" mnemonicParsing="false" onAction="#comenzarPartida" prefHeight="40.0" prefWidth="119.0" text="Jugar" />
                   <RadioButton fx:id="jugador1" disable="true" layoutX="14.0" layoutY="154.0" mnemonicParsing="false" onAction="#setJugador1" text="Jugador 1">
                      <toggleGroup>
                         <ToggleGroup fx:id="jugador" />
                      </toggleGroup>
                   </RadioButton>
                   <RadioButton fx:id="jugador2" disable="true" layoutX="14.0" layoutY="183.0" mnemonicParsing="false" onAction="#setJugador2" text="Jugador 2" toggleGroup="$jugador" />
+                  <TextField fx:id="jug1" layoutX="20.0" layoutY="307.0" promptText="Jugador 1" />
+                  <TextField fx:id="jug2" layoutX="20.0" layoutY="348.0" promptText="Jugador 2" />
                </children>
             </AnchorPane>
          </items>
@@ -98,7 +100,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="alerta_verde" layoutX="107.0" layoutY="12.0" prefHeight="30.0" prefWidth="307.0" textAlignment="CENTER" textFill="#00c645">
+            <Label fx:id="alerta_verde" layoutX="107.0" layoutY="24.0" prefHeight="30.0" prefWidth="307.0" textAlignment="CENTER" textFill="#00c645">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
